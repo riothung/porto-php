@@ -94,6 +94,11 @@ if (isset($_SESSION['user-id'])) {
                     <span>Pengalaman</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pengalaman.php" aria-expanded="true" aria-controls="collapseTwo">
+                    <span>LOG OUT</span>
+                </a>
+            </li>
 
         </ul>
         <!-- End of Sidebar -->
