@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Porto Aldy</title>
+    <title>Portfolio Adli</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -28,7 +30,7 @@
 
 <!-- navbar -->
 <nav data-aos="fade-down" class="navbar navbar-expand-lg navbar-light container">
-    <a class="navbar-brand" href="#">Aldy Porto</a>
+    <a class="navbar-brand" href="#">Aldi Siokain</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,7 +41,8 @@
         <a class="nav-link mr-5" href="#skill">Skill</a>
         <a class="nav-link mr-5" href="#Pengalaman">Pengalaman</a>
       </div>
-      <a class="buton" href="" >LOGIN</a>
+      <a class="buton" href="/porto-php/dashboard.php">LOGIN</a>
+
     </div>
   </nav>
 
