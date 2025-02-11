@@ -135,12 +135,12 @@ switch ($action) {
                 $sql = "UPDATE profil SET nama = '$nama', umur = '$umur', telepon = '$telepon', email = '$email', instagram = '$instagram', tiktok = '$tiktok', deskripsi = '$deskripsi', gambar = '$imagePath' WHERE id = $id";
 
                 if ($conn->query($sql)) {
-                    $_SESSION['success'] = 'Gambar berhasil diubah';
+                    $_SESSION['success'] = 'Data berhasil diubah';
                 } else {
-                    $_SESSION['error'] = 'Gagal mengubah gambar';
+                    $_SESSION['error'] = 'Gagal mengubah data';
                 }
             } else {
-                $_SESSION['error'] = 'Gagal mengunggah gambar';
+                $_SESSION['error'] = 'Gagal mengunggah data';
             }
 
             header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -169,9 +169,9 @@ switch ($action) {
             $sql = "DELETE FROM profil WHERE id = $id";
 
             if ($conn->query($sql)) {
-                $_SESSION['success'] = 'Gambar berhasil dihapus';
+                $_SESSION['success'] = 'Data berhasil dihapus';
             } else {
-                $_SESSION['error'] = 'Gagal menghapus gambar';
+                $_SESSION['error'] = 'Gagal menghapus data';
             }
 
             header('Location: ' . $_SERVER['HTTP_REFERER']);
