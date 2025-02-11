@@ -18,73 +18,73 @@ function generateRandomString($length = 10)
 }
 
 switch ($action) {
-    case 'add':
-        /* tambah gambar */
-        $nama = $_POST['nama'];
-        $umur = $_POST['umur'];
-        $telepon = $_POST['telepon'];
-        $email = $_POST['email'];
-        $instagram = $_POST['instagram'];
-        $tiktok = $_POST['tiktok'];
-        $deskripsi = $_POST['deskripsi'];
-        $gambar = $_FILES['gambar'];
-        // echo json_encode($gambar);
-        $target_dir = "../assets/img/gallery/";
-        $random_string = uniqid();
-        $target_file = $target_dir . $random_string . '.' . pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION);
-        $gambarFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        $size_gambar = isset($_FILES['gambar']['size']);
+        // case 'add':
+        //     /* tambah gambar */
+        //     $nama = $_POST['nama'];
+        //     $umur = $_POST['umur'];
+        //     $telepon = $_POST['telepon'];
+        //     $email = $_POST['email'];
+        //     $instagram = $_POST['instagram'];
+        //     $tiktok = $_POST['tiktok'];
+        //     $deskripsi = $_POST['deskripsi'];
+        //     $gambar = $_FILES['gambar'];
+        //     // echo json_encode($gambar);
+        //     $target_dir = "../assets/img/gallery/";
+        //     $random_string = uniqid();
+        //     $target_file = $target_dir . $random_string . '.' . pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION);
+        //     $gambarFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        //     $size_gambar = isset($_FILES['gambar']['size']);
 
-        if (!move_uploaded_file($gambar["tmp_name"], $target_file)) {
-            // handle the error
-            die('Error moving file.');
-        }
+        //     if (!move_uploaded_file($gambar["tmp_name"], $target_file)) {
+        //         // handle the error
+        //         die('Error moving file.');
+        //     }
 
-        $basename = basename($target_file);
-        $imagePath = 'assets/img/gallery/' . $basename;
+        //     $basename = basename($target_file);
+        //     $imagePath = 'assets/img/gallery/' . $basename;
 
-        $sql = "INSERT INTO profil (nama, umur, telepon, email, instagram, tiktok, deskripsi, gambar) VALUES ('$nama', '$umur', '$telepon', '$email', '$instagram', '$tiktok', '$deskripsi', '$imagePath')";
+        //     $sql = "INSERT INTO profil (nama, umur, telepon, email, instagram, tiktok, deskripsi, gambar) VALUES ('$nama', '$umur', '$telepon', '$email', '$instagram', '$tiktok', '$deskripsi', '$imagePath')";
 
-        try {
-            if ($gambar == null) {
-                if ($size_gambar > 5000000) {
-                    echo '<div class="alert alert-warning mt-2 text-center" role="alert">
-                            Ukuran gambar terlalu besar dari 5mb
-                        </div>';
-                } else {
-                    if ($gambarFileType != "jpg" && $gambarFileType != "png" && $gambarFileType != "jpeg" && $gambarFileType != "gif") {
-                        echo '<div class="alert alert-warning mt-2 text-center" role="alert">
-                            file tidak disupport!!
-                        </div>';
-                    } else {
-                        move_uploaded_file($_FILES['gambar']['tmp_name'], $target_dir . $new_gambar);
-                    }
-                }
-            }
+        //     try {
+        //         if ($gambar == null) {
+        //             if ($size_gambar > 5000000) {
+        //                 echo '<div class="alert alert-warning mt-2 text-center" role="alert">
+        //                         Ukuran gambar terlalu besar dari 5mb
+        //                     </div>';
+        //             } else {
+        //                 if ($gambarFileType != "jpg" && $gambarFileType != "png" && $gambarFileType != "jpeg" && $gambarFileType != "gif") {
+        //                     echo '<div class="alert alert-warning mt-2 text-center" role="alert">
+        //                         file tidak disupport!!
+        //                     </div>';
+        //                 } else {
+        //                     move_uploaded_file($_FILES['gambar']['tmp_name'], $target_dir . $new_gambar);
+        //                 }
+        //             }
+        //         }
 
-            if ($conn->query($sql) === TRUE) {
-                echo '<div class="alert alert-success mt-2 text-center" role="alert">
-                            Data berhasil ditambahkan
-                        </div>';
-                header("Location: " . $_SERVER['HTTP_REFERER']);
-                exit();
-            } else {
-                echo '<div class="alert alert-danger mt-2 text-center" role="alert">
-                            Data gagal ditambahkan
-                        </div>';
-            }
-        } catch (PDOException $e) {
-            $_SESSION['error'] = $e->getMessage();
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-            exit();
-        }
+        //         if ($conn->query($sql) === TRUE) {
+        //             echo '<div class="alert alert-success mt-2 text-center" role="alert">
+        //                         Data berhasil ditambahkan
+        //                     </div>';
+        //             header("Location: " . $_SERVER['HTTP_REFERER']);
+        //             exit();
+        //         } else {
+        //             echo '<div class="alert alert-danger mt-2 text-center" role="alert">
+        //                         Data gagal ditambahkan
+        //                     </div>';
+        //         }
+        //     } catch (PDOException $e) {
+        //         $_SESSION['error'] = $e->getMessage();
+        //         header('Location: ' . $_SERVER['HTTP_REFERER']);
+        //         exit();
+        //     }
 
-        $conn->close();
-        break;
+        //     $conn->close();
+        //     break;
 
     case 'edit':
-        if (isset($_GET['id']) && isset($_FILES['gambar'])) {
-            $id = $_GET['id'];
+        if (isset($_POST['submit']) && isset($_FILES['gambar'])) {
+            $id = $_REQUEST['id'];
             $nama = $_POST['nama'];
             $umur = $_POST['umur'];
             $telepon = $_POST['telepon'];

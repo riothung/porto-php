@@ -10,64 +10,23 @@ $skillList = [];
 
 if ($result->num_rows > 0) {
     // Ambil semua data skill dan masukkan ke dalam array
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $skillList[] = $row;
     }
 }
 
-// Cek apakah ada data yang dikirim melalui POST untuk tambah data
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Jika menambah data baru
-    if (isset($_POST['skill'], $_POST['presentase'])) {
-        $skill = $_POST['skill'];
-        $presentase = $_POST['presentase'];
-
-        // Menambahkan data ke database
-        $sqlInsert = "INSERT INTO skill (skill, presentase) VALUES ('$skill', '$presentase')";
-        $conn->query($sqlInsert);
-        
-        // Reload data setelah menambah data
-        header("Location: skill.php");
-        exit();
-    }
-
-    // Jika melakukan update pada skill
-    if (isset($_POST['update_skill'])) {
-        $id = $_POST['id'];
-        $skill = $_POST['update_skill'];
-        $presentase = $_POST['update_presentase'];
-
-        // Update data skill
-        $sqlUpdate = "UPDATE skill SET skill = '$skill', presentase = '$presentase' WHERE id = $id";
-        $conn->query($sqlUpdate);
-
-        // Reload data setelah update
-        header("Location: skill.php");
-        exit();
-    }
-}
-
-// Cek apakah ada data yang perlu dihapus
-if (isset($_GET['delete'])) {
-    $indexToDelete = $_GET['delete'];
-    // Hapus data dari database
-    $sqlDelete = "DELETE FROM skill WHERE id = $indexToDelete";
-    $conn->query($sqlDelete);
-    
-    // Reload data setelah menghapus data
-    header("Location: skill.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Skill</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center">
@@ -77,7 +36,7 @@ if (isset($_GET['delete'])) {
                         <h4 class="card-title">Form Skill</h4>
                     </div>
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="./controllers/skillController.php?action=add" method="POST">
                             <div class="form-group">
                                 <label for="skill">Skill</label>
                                 <input type="text" class="form-control" id="skill" name="skill" placeholder="Masukkan nama skill" required>
@@ -86,7 +45,7 @@ if (isset($_GET['delete'])) {
                                 <label for="presentase">Presentase</label>
                                 <input type="number" class="form-control" id="presentase" name="presentase" placeholder="Masukkan presentase kemahiran" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Tambah Skill</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Tambah Skill</button>
                         </form>
 
                         <div class="mt-4">
@@ -99,7 +58,7 @@ if (isset($_GET['delete'])) {
                                             <p class="card-text">Presentase: <?= htmlspecialchars($skill['presentase']); ?>%</p>
                                             <!-- Button Edit, Menggunakan modal -->
                                             <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" data-id="<?= $skill['id']; ?>" data-skill="<?= htmlspecialchars($skill['skill']); ?>" data-presentase="<?= htmlspecialchars($skill['presentase']); ?>">Edit</button>
-                                            <a href="?delete=<?= $skill['id']; ?>" class="btn btn-danger btn-sm">Hapus</a>
+                                            <a href="./controllers/skillController.php?action=delete&id=<?= $skill['id']; ?>" class="btn btn-danger btn-sm">Hapus</a>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -124,17 +83,17 @@ if (isset($_GET['delete'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST">
-                        <input type="hidden" id="id" name="id">
+                    <form action="./controllers/skillController.php?action=edit" method="POST">
+                        <input type="hidden" id="skill_id" name="id">
                         <div class="form-group">
                             <label for="update_skill">Skill</label>
-                            <input type="text" class="form-control" id="update_skill" name="update_skill" required>
+                            <input type="text" class="form-control" id="update_skill" name="skill" required>
                         </div>
                         <div class="form-group">
                             <label for="update_presentase">Presentase</label>
-                            <input type="number" class="form-control" id="update_presentase" name="update_presentase" required>
+                            <input type="number" class="form-control" id="update_presentase" name="presentase" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Skill</button>
+                        <button type="submit" name="submit" class="btn btn-primary">Update Skill</button>
                     </form>
                 </div>
             </div>
@@ -148,21 +107,28 @@ if (isset($_GET['delete'])) {
 
     <script>
         // Mengisi modal dengan data yang dipilih untuk edit
-        $('#editModal').on('show.bs.modal', function (event) {
+        $('#editModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); // tombol yang memicu modal
             var id = button.data('id');
             var skill = button.data('skill');
             var presentase = button.data('presentase');
 
+            console.log('Modal data:', {
+                id,
+                skill,
+                presentase
+            }); // Debug
+
             // Menampilkan data di modal
             var modal = $(this);
-            modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #update_skill').val(skill);
-            modal.find('.modal-body #update_presentase').val(presentase);
+            modal.find('#skill_id').val(id);
+            modal.find('#update_skill').val(skill);
+            modal.find('#update_presentase').val(presentase);
         });
     </script>
 
 </body>
+
 </html>
 
 <?php require './partials/footer.php'; ?>

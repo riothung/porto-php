@@ -16,17 +16,17 @@ switch ($action) {
             $kategori = $_POST['kategori'];
             $deskripsi = $_POST['deskripsi'];
 
-            $sql = "INSERT INTO pengalaman VALUE ('$pengalaman', '$kategori', '$tahun', '$deskripsi')";
+            $sql = "INSERT INTO pengalaman (pengalaman, kategori, tahun, deskripsi) VALUES ('$pengalaman', '$kategori', '$tahun', '$deskripsi')";
 
             try {
                 $result = $conn->query($sql);
                 $_SESSION['success-alert'] = 'Berhasil menambah data';
-                header("Location: ../dashboard.php");
+                header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit();
             } catch (PDOException $e) {
                 echo json_encode($e);
                 $_SESSION['failed-alert'] = 'Gagal menambah data';
-                header("Location: ../dashboard.php");
+                header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit();
             }
         }
@@ -36,7 +36,7 @@ switch ($action) {
     case 'edit':
         if (isset($_POST['submit'])) {
 
-            $id = $_GET['id'];
+            $id = $_POST['id'];
 
             $pengalaman = $_POST['pengalaman'];
             $kategori = $_POST['kategori'];
@@ -62,7 +62,7 @@ switch ($action) {
     case 'delete':
 
         $id = $_GET['id'];
-        $sql = "DELETE FROM skill WHERE id='$id'";
+        $sql = "DELETE FROM pengalaman WHERE id='$id'";
         try {
             $result = $conn->query($sql);
             $_SESSION['success-alert'] = 'Berhasil menghapus data';

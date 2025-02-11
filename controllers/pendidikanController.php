@@ -15,18 +15,17 @@ switch ($action) {
             $lokasi = $_POST['lokasi'];
             $tahun = $_POST['tahun'];
 
-            $sql = "INSERT INTO pendidikan VALUE ('$pendidikan', '$lokasi', '$tahun')";
+            $sql = "INSERT INTO pendidikan (pendidikan, lokasi, tahun) VALUES ('$pendidikan', '$lokasi', '$tahun')";
 
-            // Move the uploaded image to a permanent location on the server
             try {
                 $result = $conn->query($sql);
                 $_SESSION['success-alert'] = 'Berhasil menambah data';
-                header("Location: ../dashboard.php");
+                header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit();
             } catch (PDOException $e) {
                 echo json_encode($e);
                 $_SESSION['failed-alert'] = 'Gagal menambah data';
-                header("Location: ../dashboard.php");
+                header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit();
             }
         }
@@ -36,7 +35,7 @@ switch ($action) {
     case 'edit':
         if (isset($_POST['submit'])) {
 
-            $id = $_GET['id'];
+            $id = $_POST['id'];
 
             $pendidikan = $_POST['pendidikan'];
             $lokasi = $_POST['lokasi'];
@@ -59,9 +58,9 @@ switch ($action) {
         break;
 
     case 'delete':
-
         $id = $_GET['id'];
-        $sql = "DELETE FROM skill WHERE id='$id'";
+
+        $sql = "DELETE FROM pendidikan WHERE id='$id'";
         try {
             $result = $conn->query($sql);
             $_SESSION['success-alert'] = 'Berhasil menghapus data';
@@ -72,9 +71,7 @@ switch ($action) {
             header("Location: " . $_SERVER['HTTP_REFERER']);
             exit();
         }
-
         $conn->close();
-
         break;
 
     default:

@@ -14,18 +14,18 @@ switch ($action) {
             $skill = $_POST['skill'];
             $presentase = $_POST['presentase'];
 
-            $sql = "INSERT INTO skill VALUE ('$skill', '$presentase')";
+            $sql = "INSERT INTO skill (skill, presentase) VALUES ('$skill', '$presentase')";
 
             // Move the uploaded image to a permanent location on the server
             try {
                 $result = $conn->query($sql);
                 $_SESSION['success-alert'] = 'Berhasil menambah data';
-                header("Location: ../dashboard.php");
+                header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit();
             } catch (PDOException $e) {
                 echo json_encode($e);
                 $_SESSION['failed-alert'] = 'Gagal menambah data';
-                header("Location: ../dashboard.php");
+                header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit();
             }
         }
@@ -35,7 +35,7 @@ switch ($action) {
     case 'edit':
         if (isset($_POST['submit'])) {
 
-            $id = $_GET['id'];
+            $id = $_POST['id'];
 
             $skill = $_POST['skill'];
             $presentase = $_POST['presentase'];

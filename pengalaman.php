@@ -9,68 +9,23 @@ $pengalamanList = [];
 
 if ($result->num_rows > 0) {
     // Ambil semua data pengalaman dan masukkan ke dalam array
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $pengalamanList[] = $row;
     }
 }
 
-// Cek apakah ada data yang dikirim melalui POST untuk tambah data
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Jika menambah data baru
-    if (isset($_POST['pengalaman'], $_POST['tahun'], $_POST['kategori'], $_POST['deskripsi'])) {
-        $pengalaman = $_POST['pengalaman'];
-        $tahun = $_POST['tahun'];
-        $kategori = $_POST['kategori'];
-        $deskripsi = $_POST['deskripsi'];
-
-        // Menambahkan data ke database
-        $sqlInsert = "INSERT INTO pengalaman (pengalaman, tahun, kategori, deskripsi) VALUES ('$pengalaman', '$tahun', '$kategori', '$deskripsi')";
-        $conn->query($sqlInsert);
-        
-        // Reload data setelah menambah data
-        header("Location: pengalaman.php");
-        exit();
-    }
-
-    // Jika melakukan update pada pengalaman
-    if (isset($_POST['update_pengalaman'])) {
-        $id = $_POST['id'];
-        $pengalaman = $_POST['update_pengalaman'];
-        $tahun = $_POST['update_tahun'];
-        $kategori = $_POST['update_kategori'];
-        $deskripsi = $_POST['update_deskripsi'];
-
-        // Update data pengalaman
-        $sqlUpdate = "UPDATE pengalaman SET pengalaman = '$pengalaman', tahun = '$tahun', kategori = '$kategori', deskripsi = '$deskripsi' WHERE id = $id";
-        $conn->query($sqlUpdate);
-
-        // Reload data setelah update
-        header("Location: pengalaman.php");
-        exit();
-    }
-}
-
-// Cek apakah ada data yang perlu dihapus
-if (isset($_GET['delete'])) {
-    $indexToDelete = $_GET['delete'];
-    // Hapus data dari database
-    $sqlDelete = "DELETE FROM pengalaman WHERE id = $indexToDelete";
-    $conn->query($sqlDelete);
-    
-    // Reload data setelah menghapus data
-    header("Location: pengalaman.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Pengalaman</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center">
@@ -80,7 +35,7 @@ if (isset($_GET['delete'])) {
                         <h4 class="card-title">Form Pengalaman</h4>
                     </div>
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="./controllers/pengalamanController.php?action=add" method="POST">
                             <div class="form-group">
                                 <label for="pengalaman">Pengalaman</label>
                                 <input type="text" class="form-control" id="pengalaman" name="pengalaman" placeholder="Masukkan pengalaman" required>
@@ -97,7 +52,7 @@ if (isset($_GET['delete'])) {
                                 <label for="deskripsi">Deskripsi</label>
                                 <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" placeholder="Masukkan deskripsi pengalaman" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Tambah Pengalaman</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Tambah Pengalaman</button>
                         </form>
 
                         <div class="mt-4">
@@ -111,7 +66,7 @@ if (isset($_GET['delete'])) {
                                             <p class="card-text"><?= htmlspecialchars($pengalaman['deskripsi']); ?></p>
                                             <!-- Button Edit, Menggunakan modal -->
                                             <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal" data-id="<?= $pengalaman['id']; ?>" data-pengalaman="<?= htmlspecialchars($pengalaman['pengalaman']); ?>" data-tahun="<?= htmlspecialchars($pengalaman['tahun']); ?>" data-kategori="<?= htmlspecialchars($pengalaman['kategori']); ?>" data-deskripsi="<?= htmlspecialchars($pengalaman['deskripsi']); ?>">Edit</button>
-                                            <a href="?delete=<?= $pengalaman['id']; ?>" class="btn btn-danger btn-sm">Hapus</a>
+                                            <a href="./controllers/pengalamanController.php?action=delete&id=<?= $pengalaman['id']; ?>" class="btn btn-danger btn-sm">Hapus</a>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -136,25 +91,25 @@ if (isset($_GET['delete'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST">
+                    <form action="./controllers/pengalamanController.php?action=edit" method="POST">
                         <input type="hidden" id="id" name="id">
                         <div class="form-group">
                             <label for="update_pengalaman">Pengalaman</label>
-                            <input type="text" class="form-control" id="update_pengalaman" name="update_pengalaman" required>
+                            <input type="text" class="form-control" id="update_pengalaman" name="pengalaman" required>
                         </div>
                         <div class="form-group">
                             <label for="update_tahun">Tahun</label>
-                            <input type="number" class="form-control" id="update_tahun" name="update_tahun" required>
+                            <input type="number" class="form-control" id="update_tahun" name="tahun" required>
                         </div>
                         <div class="form-group">
                             <label for="update_kategori">Kategori</label>
-                            <input type="text" class="form-control" id="update_kategori" name="update_kategori" required>
+                            <input type="text" class="form-control" id="update_kategori" name="kategori" required>
                         </div>
                         <div class="form-group">
                             <label for="update_deskripsi">Deskripsi</label>
-                            <textarea class="form-control" id="update_deskripsi" name="update_deskripsi" rows="3" required></textarea>
+                            <textarea class="form-control" id="update_deskripsi" name="deskripsi" rows="3" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Pengalaman</button>
+                        <button type="submit" name="submit" class="btn btn-primary">Update Pengalaman</button>
                     </form>
                 </div>
             </div>
@@ -168,7 +123,7 @@ if (isset($_GET['delete'])) {
 
     <script>
         // Mengisi modal dengan data yang dipilih untuk edit
-        $('#editModal').on('show.bs.modal', function (event) {
+        $('#editModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); // tombol yang memicu modal
             var id = button.data('id');
             var pengalaman = button.data('pengalaman');
@@ -187,6 +142,7 @@ if (isset($_GET['delete'])) {
     </script>
 
 </body>
+
 </html>
 
 <?php require './partials/footer.php'; ?>
