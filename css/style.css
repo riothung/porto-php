@@ -5,6 +5,8 @@ merah #D84040
 terang #EEEEEE
 */
 
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -37,7 +39,15 @@ html {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: -7px 7px 0px #d84040; /* Shadow sesuai permintaan */
+  text-decoration: none;  /* Menghilangkan garis bawah jika digunakan dalam <a> */
+  display: inline-block;   /* Membuat <a> yang memiliki style button terlihat seperti button */
 }
+
+.buton:hover {
+  background-color: #d84040;  /* Warna background saat hover */
+  box-shadow: -7px 7px 10px #d84040;  /* Menambahkan efek shadow saat hover */
+}
+
 .hero-section {
   display: flex; /* Gunakan flexbox di layar besar */
   align-items: center;
