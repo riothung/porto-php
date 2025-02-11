@@ -206,8 +206,33 @@ html {
 }
 
 .footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #1d1616;
   position: relative;
   bottom: 0;
   width: 100%;
+}
+
+
+
+
+#goToTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  transition: background-color 0.3s;
+}
+
+#goToTopBtn:hover {
+  background-color: #0056b3;
 }

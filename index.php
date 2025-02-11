@@ -1,3 +1,41 @@
+<?php
+require './db.php';
+
+$conn = OpenCon();
+session_start();
+
+$user;
+
+if (isset($_SESSION['user-id'])) {
+    $id = $_SESSION['user-id'];
+    $query = "SELECT * FROM user WHERE id = '$id'";
+    $result = $conn->query($query);
+    $user = mysqli_fetch_assoc($result);
+} else {
+    header('Location: login.php');
+    exit;
+}
+
+
+?>
+
+<?php
+
+$QueryProfile = "SELECT * FROM profil";
+$ResultProfile = $conn->query($QueryProfile);
+
+// Mengambil data pendidikan
+$queryPendidikan = "SELECT * FROM pendidikan";
+$resultPendidikan = $conn->query($queryPendidikan);
+
+// Mengambil data pengalaman
+$queryPengalaman = "SELECT * FROM pengalaman";
+$resultPengalaman = $conn->query($queryPengalaman);
+
+// Mengambil data skill
+$querySkill = "SELECT * FROM skill";
+$resultSkill = $conn->query($querySkill);
+?>
 
 
 <!DOCTYPE html>
@@ -52,10 +90,21 @@
 
 <!-- Hero Section -->
 <?php
+
+if ($ResultProfile->num_rows > 0) {
+  // Ambil data baris pertama
+  $Profile = $ResultProfile->fetch_assoc();
+} else {
+  // Jika tidak ada hasil, set nilai default atau beri pesan error
+  $Profile = [
+      "namas" => "Nama Tidak Ditemukan",
+      "description" => "Deskripsi tidak tersedia.",
+      "image" => "default_image.jpg"
+  ];
+}
+
 // Data dummy untuk hero section
 $hero = [
-    "title" => "Welcome to My Portfolio",
-    "description" => "This is where I showcase my projects, skills, and experience. Feel free to explore and connect with me!",
     "image" => "img/bayu.jpg"
 ];
 ?>
@@ -65,13 +114,13 @@ $hero = [
         <div class="row align-items-center">
             <!-- Bagian Teks -->
             <div data-aos="fade-right" class="col-md-6 text">
-                <h1><?php echo $hero["title"]; ?></h1>
-                <p><?php echo $hero["description"]; ?></p>
+                <h1>Welcome To <?php echo $Profile["nama"]; ?> Portfolio</h1>
+                <p><?php echo $Profile["deskripsi"]; ?></p>
             </div>
 
             <!-- Bagian Gambar -->
             <div data-aos="fade-left" class="col-md-6 image text-center">
-                <img src="<?php echo $hero["image"]; ?>" alt="Profile Picture" class="img-fluid rounded-circle">
+                <img src="<?php echo $Profile["gambar"]; ?>" alt="Profile Picture" class="img-fluid rounded-circle">
             </div>
         </div>
     </div>
@@ -90,37 +139,17 @@ $hero = [
 
         <div class="row">
             <?php
-            $educations = [
-                [
-                    "nama" => "Universitas Citra Bangsa",
-                    "tahun" => "2020 - 2024",
-                    "gelar" => "Sarjana Komputer (S.Kom)",
-                    "jurusan" => "Teknik Informatika",
-                    "deskripsi" => "Fokus pada pengembangan perangkat lunak dan kecerdasan buatan."
-                ],
-                [
-                    "nama" => "SMA Negeri 1 Kupang",
-                    "tahun" => "2017 - 2020",
-                    "jurusan" => "Ilmu Pengetahuan Alam (IPA)",
-                    "deskripsi" => "Belajar berbagai mata pelajaran dasar yang membentuk dasar pengetahuan sains dan teknologi."
-                ],
-                [
-                    "nama" => "SMP Negeri 5 Kupang",
-                    "tahun" => "2014 - 2017",
-                    "deskripsi" => "Menimba ilmu dasar sebelum melanjutkan ke pendidikan menengah atas."
-                ]
-            ];
-
-            foreach ($educations as $edu) {
-                echo '<div class="col-lg-4 col-md-6 col-sm-12">';
-                echo '  <div data-aos="fade-up" class="education-card">';
-                echo '    <h5>' . $edu['nama'] . '</h5>';
-                echo '    <p class="year">' . $edu['tahun'] . '</p>';
-                if (isset($edu['gelar'])) echo '    <p>Gelarnya: ' . $edu['gelar'] . '</p>';
-                if (isset($edu['jurusan'])) echo '    <p>Jurusan: ' . $edu['jurusan'] . '</p>';
-                echo '    <p>' . $edu['deskripsi'] . '</p>';
-                echo '  </div>';
-                echo '</div>';
+ 
+              if ($resultPendidikan->num_rows > 0) {
+                while ($edu = $resultPendidikan->fetch_assoc()){
+                  echo '<div class="col-lg-4 col-md-6 col-sm-12">';
+                  echo '  <div data-aos="fade-up" class="education-card">';
+                  echo '    <h5>' . $edu['lokasi'] . '</h5>';
+                  echo '    <p class="year">' . $edu['tahun'] . '</p>';
+                  if (isset($edu['pendidikan'])) echo '    <p>Gelarnya: ' . $edu['pendidikan'] . '</p>';
+                  echo '  </div>';
+                  echo '</div>';
+                }
             }
             ?>
         </div>
@@ -141,30 +170,19 @@ $hero = [
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <?php
-                // Data dummy tanpa database
-                $skills = [
-                    ["skill_name" => "HTML & CSS", "percentage" => 10],
-                    ["skill_name" => "JavaScript", "percentage" => 85],
-                    ["skill_name" => "ReactJS", "percentage" => 80],
-                    ["skill_name" => "PHP", "percentage" => 75],
-                    ["skill_name" => "Bootstrap", "percentage" => 85],
-                    ["skill_name" => "MySQL", "percentage" => 70],
-                ];
-
-                $count = 0;
-                foreach ($skills as $row) {
-                    if ($count % 3 == 0 && $count > 0) {
-                        echo '</div><div class="col-md-6">';
+            <div class="col-md-8">
+            <?php
+                if ($resultSkill->num_rows > 0) {
+                    while ($row = $resultSkill->fetch_assoc()) {
+                        echo '<div data-aos="fade-up" class="skill-item mb-3">';
+                        echo '<p><i class="fas fa-check-circle"></i> ' . $row['skill'] . '</p>';
+                        echo '<div class="progress">';
+                        echo '<div class="progress-bar bg-danger" role="progressbar" style="width: ' . $row['presentase'] . '%;" aria-valuenow="' . $row['presentase'] . '" aria-valuemin="0" aria-valuemax="100"></div>';
+                        echo '</div>';
+                        echo '</div>';
                     }
-                    echo '<div data-aos="fade-up" class="skill-item mb-3">';
-                    echo '<p><i class="fas fa-check-circle"></i> ' . $row['skill_name'] . '</p>';
-                    echo '<div class="progress">';
-                    echo '<div class="progress-bar bg-danger" role="progressbar" style="width: ' . $row['percentage'] . '%;" aria-valuenow="' . $row['percentage'] . '" aria-valuemin="0" aria-valuemax="100"></div>';
-                    echo '</div>';
-                    echo '</div>';
-                    $count++;
+                } else {
+                    echo "<p>Data skill tidak ditemukan.</p>";
                 }
                 ?>
             </div>
@@ -183,35 +201,21 @@ $hero = [
         </div>
 
         <div class="timeline">
-            <?php
-            // Data pengalaman (Dummy)
-            $experiences = [
-                [
-                    "title" => "Front-End Developer - Web.it Kupang",
-                    "date" => "2024 - Sekarang",
-                    "description" => "Mengembangkan aplikasi restoran menggunakan PHP, serta membuat web portfolio dengan ReactJS dan Tailwind CSS."
-                ],
-                [
-                    "title" => "Internship - BAWASLU Kota Kupang",
-                    "date" => "Agustus - September 2023",
-                    "description" => "Membangun aplikasi pengaduan masyarakat menggunakan Laravel."
-                ],
-                [
-                    "title" => "Freelance Web Developer",
-                    "date" => "2022 - Sekarang",
-                    "description" => "Membuat berbagai proyek web untuk klien menggunakan ReactJS, Bootstrap, dan Tailwind CSS."
-                ]
-            ];
-
-            foreach ($experiences as $exp) {
-                echo '<div class="timeline-item">';
-                echo '<div class="timeline-dot"></div>';
-                echo '<div data-aos="fade-up" class="timeline-content">';
-                echo '<h4>' . $exp['title'] . '</h4>';
-                echo '<span class="date">' . $exp['date'] . '</span>';
-                echo '<p>' . $exp['description'] . '</p>';
-                echo '</div>';
-                echo '</div>';
+        <?php
+            if ($resultPengalaman->num_rows > 0) {
+                while ($exp = $resultPengalaman->fetch_assoc()) {
+                    echo '<div class="timeline-item">';
+                    echo '<div class="timeline-dot"></div>';
+                    echo '<div data-aos="fade-up" class="timeline-content">';
+                    echo '<h4>' . $exp['pengalaman'] . '</h4>';
+                    echo '<span class="date">' . $exp['tahun'] . '</span>';
+                    echo '<span class="date">' . $exp['kategori'] . '</span>';
+                    echo '<p>' . $exp['deskripsi'] . '</p>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            } else {
+                echo "<p>Data pengalaman tidak ditemukan.</p>";
             }
             ?>
         </div>
@@ -223,12 +227,22 @@ $hero = [
 
 
 
-<!-- Footer -->
-<footer class="footer text-center py-3">
-    <p class="mb-0">© 2025 Bayu Husada</p>
-</footer>
 
 <!-- Footer -->
+<footer class="footer text-center py-3">
+    <p class="mb-0 icon mr-4">© <?php echo $Profile['nama']; ?> </p>
+    <a href="https://www.tiktok.com/@<?php echo $Profile['tiktok']; ?>" class="mb-0 icon mr-4">Tiktok</a>
+    <a href="https://www.instagram.com/<?php echo $Profile['instagram']; ?>" class="mb-0 icon mr-4">Instagram</a>
+    <a href="mailto:<?php echo $Profile['email']; ?>" class="mb-0 icon">Email</a>
+</footer>
+
+
+<!-- Footer -->
+
+<!-- Tombol Go to Top -->
+<a href="#" id="goToTopBtn" class="btn btn-primary rounded-circle" style="position: fixed; bottom: 20px; right: 20px; display: none; z-index: 1000;">
+    <i class="fas fa-arrow-up"></i>
+</a>
 
 
 
@@ -258,6 +272,30 @@ $hero = [
         });
     </script>
 
+
+<script>
+  // Mendapatkan elemen tombol
+var mybutton = document.getElementById("goToTopBtn");
+
+// Ketika pengguna menggulir 100px dari atas, tombol akan muncul
+window.onscroll = function() {
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+};
+
+// Ketika tombol diklik, halaman akan scroll kembali ke atas
+mybutton.onclick = function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  return false;
+};
+
+</script>
+
 </body>
 
 </html>
+
+<?php $conn->close() ?>
