@@ -1,5 +1,5 @@
 <?php
-require '../db.php';
+require './db.php';
 
 $conn = OpenCon();
 session_start();
@@ -39,7 +39,7 @@ if (isset($_SESSION['user-id'])) {
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -52,7 +52,7 @@ if (isset($_SESSION['user-id'])) {
         <ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../admin/index.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
                 <div class="sidebar-brand-text mx-3">Porto Admin</div>
             </a>
 
@@ -61,7 +61,7 @@ if (isset($_SESSION['user-id'])) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="../admin/index.php">
+                <a class="nav-link" href="dashboard.php">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <span>Dashboard</span></a>
             </li>
@@ -72,25 +72,25 @@ if (isset($_SESSION['user-id'])) {
 
             <!-- Profil menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../admin/profil.php" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="profil.php" aria-expanded="true" aria-controls="collapseTwo">
                     <span>Profil</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../admin/pendidikan.php" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="pendidikan.php" aria-expanded="true" aria-controls="collapseTwo">
                     <span>Pendidikan</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../admin/skill.php" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="skill.php" aria-expanded="true" aria-controls="collapseTwo">
                     <span>Skill</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../admin/pengalaman.php" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="pengalaman.php" aria-expanded="true" aria-controls="collapseTwo">
                     <span>Pengalaman</span>
                 </a>
             </li>

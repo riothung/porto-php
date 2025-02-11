@@ -4,36 +4,39 @@ gelap #8E1616
 merah #D84040
 terang #EEEEEE
 */
+
+html {
+  scroll-behavior: smooth;
+}
+
 .fullscreen-section {
   height: 100vh;
 }
 
-
 .navbar-nav .nav-link .navbar-light {
-  color: #1D1616;
+  color: #1d1616;
 }
 
-
 .navbar-nav .navbar-light .nav-link:hover {
-  color: #D84040;
+  color: #d84040;
 }
 
 .navbar-brand {
-  color: #1D1616;
+  color: #1d1616;
 }
 .navbar-brand:hover {
-  color: #1D1616;
+  color: #1d1616;
 }
 
-.buton{
+.buton {
   padding: 10px 20px;
   font-size: 16px;
   border: none;
-  background-color: #8E1616;
-  color: #EEEEEE;
+  background-color: #8e1616;
+  color: #eeeeee;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: -7px 7px 0px #D84040; /* Shadow sesuai permintaan */
+  box-shadow: -7px 7px 0px #d84040; /* Shadow sesuai permintaan */
 }
 .hero-section {
   display: flex; /* Gunakan flexbox di layar besar */
@@ -59,13 +62,13 @@ terang #EEEEEE
 }
 
 .hero-section .text {
-  color: #1D1616;
+  color: #1d1616;
   flex: 1;
   padding: 40px;
 }
 
 .hero-section .text h1 {
-  color: #1D1616;
+  color: #1d1616;
   font-size: 3rem;
   margin-bottom: 20px;
 }
@@ -82,7 +85,7 @@ terang #EEEEEE
     flex-direction: column; /* Menyusun gambar dan teks secara vertikal */
     justify-content: center; /* Menyusun konten secara vertikal */
   }
-  
+
   .hero-section .image {
     margin-bottom: 20px; /* Memberikan jarak di bawah gambar */
   }
@@ -93,17 +96,14 @@ terang #EEEEEE
   }
 }
 
-
-
-
 .education-section {
-  background-color: #D84040;
+  background-color: #d84040;
   padding: 50px 0;
 }
 .education-card {
   background: #fff;
   padding: 30px;
-  box-shadow: -7px 7px 0px #8E1616;
+  box-shadow: -7px 7px 0px #8e1616;
 }
 .education-card h5 {
   font-size: 1.5rem;
@@ -116,14 +116,12 @@ terang #EEEEEE
 }
 .education-card .year {
   font-weight: bold;
-  color: #D84040
+  color: #d84040;
 }
 .education-title {
   text-align: center;
   margin-bottom: 40px;
 }
-
-
 
 .skills-section {
   background-color: #fff;
@@ -135,7 +133,7 @@ terang #EEEEEE
 }
 .skill-title h2 {
   font-weight: bold;
-  color: #1D1616;
+  color: #1d1616;
 }
 .skill-item {
   margin-bottom: 20px;
@@ -145,27 +143,22 @@ terang #EEEEEE
   border-radius: 5px;
 }
 .progress-bar {
-  background-color: #8E1616;
+  background-color: #8e1616;
 }
 .skill-icon {
   font-size: 24px;
   margin-right: 10px;
-  color: #D84040;
+  color: #d84040;
 }
 
-
-
-
-
-.experience-section{
-  background-color: #D84040;
+.experience-section {
+  background-color: #d84040;
 }
 .timeline {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
   padding-left: 20px;
-  
 }
 
 .timeline-item {
@@ -180,12 +173,12 @@ terang #EEEEEE
   top: 10px;
   width: 14px;
   height: 14px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   border-radius: 50%;
 }
 
 .timeline-content {
-  background: #EEEEEE;
+  background: #eeeeee;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -197,16 +190,13 @@ terang #EEEEEE
 
 .timeline-content .date {
   font-size: 14px;
-  color: #8E1616;
+  color: #8e1616;
   display: block;
   margin-bottom: 5px;
 }
 
-
-
-
 .footer {
-  color: #1D1616;
+  color: #1d1616;
   position: relative;
   bottom: 0;
   width: 100%;
