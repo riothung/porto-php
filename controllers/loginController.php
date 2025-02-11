@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
         if (mysqli_num_rows($fetch_user) == 1) {
             $user = mysqli_fetch_assoc($fetch_user);
             $_SESSION['user-id'] = $user['id'];
-            header('Location: ../index.php');
+            header('Location: ../admin/index.php');
             exit();
         } else {
             $_SESSION['login-error'] = 'User not found';
