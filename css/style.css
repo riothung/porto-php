@@ -1,0 +1,213 @@
+/* warna
+hitam #1D1616
+gelap #8E1616
+merah #D84040
+terang #EEEEEE
+*/
+.fullscreen-section {
+  height: 100vh;
+}
+
+
+.navbar-nav .nav-link .navbar-light {
+  color: #1D1616;
+}
+
+
+.navbar-nav .navbar-light .nav-link:hover {
+  color: #D84040;
+}
+
+.navbar-brand {
+  color: #1D1616;
+}
+.navbar-brand:hover {
+  color: #1D1616;
+}
+
+.buton{
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background-color: #8E1616;
+  color: #EEEEEE;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: -7px 7px 0px #D84040; /* Shadow sesuai permintaan */
+}
+.hero-section {
+  display: flex; /* Gunakan flexbox di layar besar */
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  flex-wrap: wrap; /* Agar gambar dan teks bisa ditumpuk pada layar kecil */
+}
+
+.hero-section .image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.hero-section .image img {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hero-section .text {
+  color: #1D1616;
+  flex: 1;
+  padding: 40px;
+}
+
+.hero-section .text h1 {
+  color: #1D1616;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-section .text p {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
+/* Responsivitas untuk perangkat lebih kecil */
+@media (max-width: 768px) {
+  .hero-section {
+    display: flex; /* Gunakan flexbox pada perangkat kecil */
+    flex-direction: column; /* Menyusun gambar dan teks secara vertikal */
+    justify-content: center; /* Menyusun konten secara vertikal */
+  }
+  
+  .hero-section .image {
+    margin-bottom: 20px; /* Memberikan jarak di bawah gambar */
+  }
+
+  .hero-section .image img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+
+
+
+.education-section {
+  background-color: #D84040;
+  padding: 50px 0;
+}
+.education-card {
+  background: #fff;
+  padding: 30px;
+  box-shadow: -7px 7px 0px #8E1616;
+}
+.education-card h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.education-card p {
+  font-size: 1rem;
+  color: #6c757d;
+}
+.education-card .year {
+  font-weight: bold;
+  color: #D84040
+}
+.education-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+
+
+.skills-section {
+  background-color: #fff;
+  padding: 60px 0;
+}
+.skill-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.skill-title h2 {
+  font-weight: bold;
+  color: #1D1616;
+}
+.skill-item {
+  margin-bottom: 20px;
+}
+.progress {
+  height: 8px;
+  border-radius: 5px;
+}
+.progress-bar {
+  background-color: #8E1616;
+}
+.skill-icon {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #D84040;
+}
+
+
+
+
+
+.experience-section{
+  background-color: #D84040;
+}
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 20px;
+  
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 30px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 14px;
+  height: 14px;
+  background-color: #EEEEEE;
+  border-radius: 50%;
+}
+
+.timeline-content {
+  background: #EEEEEE;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-content h4 {
+  margin-bottom: 5px;
+}
+
+.timeline-content .date {
+  font-size: 14px;
+  color: #8E1616;
+  display: block;
+  margin-bottom: 5px;
+}
+
+
+
+
+.footer {
+  color: #1D1616;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
