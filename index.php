@@ -39,7 +39,7 @@
         <a class="nav-link mr-5" href="#skill">Skill</a>
         <a class="nav-link mr-5" href="#Pengalaman">Pengalaman</a>
       </div>
-      <button class="buton" >LOGIN</button>
+      <a class="buton" href="" >LOGIN</a>
     </div>
   </nav>
 
