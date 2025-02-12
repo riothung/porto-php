@@ -4,18 +4,14 @@ require './db.php';
 $conn = OpenCon();
 session_start();
 
-$user;
+$user = null;
 
 if (isset($_SESSION['user-id'])) {
     $id = $_SESSION['user-id'];
     $query = "SELECT * FROM user WHERE id = '$id'";
     $result = $conn->query($query);
     $user = mysqli_fetch_assoc($result);
-} else {
-    header('Location: login.php');
-    exit;
 }
-
 
 ?>
 
