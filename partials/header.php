@@ -95,6 +95,11 @@ if (isset($_SESSION['user-id'])) {
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link collapsed" href="index.php" aria-expanded="true" aria-controls="collapseTwo">
+                    <span>Back To Porto</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="controllers/logout.php">
                     <span>LOG OUT</span>
                 </a>
