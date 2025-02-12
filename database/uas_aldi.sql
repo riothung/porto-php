@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2025 at 12:27 PM
+-- Generation Time: Feb 12, 2025 at 01:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,6 +34,16 @@ CREATE TABLE `pendidikan` (
   `tahun` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `pendidikan`
+--
+
+INSERT INTO `pendidikan` (`id`, `pendidikan`, `lokasi`, `tahun`) VALUES
+(1, 'S1 Teknologi Informasi', 'Stikom Uyelindo', '2024'),
+(2, 'SMK Teknik Komputer Jaringan', 'SMK Negeri 1 Kupang', '2020'),
+(3, 'S2 Manajemen Sistem Informasi', 'Universitas Teknologi Jakarta', '2026'),
+(4, 'S1 Desain Komunikasi Visual', 'Universitas Desain Bandung', '2025');
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +57,16 @@ CREATE TABLE `pengalaman` (
   `kategori` varchar(25) NOT NULL,
   `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pengalaman`
+--
+
+INSERT INTO `pengalaman` (`id`, `pengalaman`, `tahun`, `kategori`, `deskripsi`) VALUES
+(1, 'Frontend Developer di Web.it Kupang', '2024', 'Pekerjaan', 'Bertanggung jawab dalam merancang dan mengembangkan antarmuka pengguna untuk aplikasi web menggunakan ReactJS dan TailwindCSS.'),
+(2, 'Internship di BAWASLU Kota Kupang', '2023', 'Magang', 'Mengembangkan aplikasi Pengaduan Masyarakat dengan Laravel sebagai bagian dari program magang.'),
+(3, 'Freelance Front-End Developer', '2023', 'Freelance', 'Menyediakan layanan pengembangan front-end menggunakan ReactJS, TailwindCSS, dan Bootstrap untuk beberapa klien.'),
+(4, 'Pembuatan Website Portofolio Pribadi', '2023', 'Proyek Pribadi', 'Merancang dan mengembangkan website portofolio pribadi untuk menampilkan proyek-proyek pengembangan web saya menggunakan ReactJS dan TailwindCSS.');
 
 -- --------------------------------------------------------
 
@@ -66,6 +86,13 @@ CREATE TABLE `profil` (
   `gambar` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `profil`
+--
+
+INSERT INTO `profil` (`id`, `nama`, `umur`, `telepon`, `email`, `instagram`, `tiktok`, `deskripsi`, `gambar`) VALUES
+(1, 'Aldi', 22, 1010101, 'aldi@example.com', '@aldi', '@aldi', 'asdasdasd', 'assets/img/gallery/67ab5cb3a9671.jpeg');
+
 -- --------------------------------------------------------
 
 --
@@ -74,9 +101,21 @@ CREATE TABLE `profil` (
 
 CREATE TABLE `skill` (
   `id` int(11) NOT NULL,
-  `skill` int(11) NOT NULL,
+  `skill` varchar(50) NOT NULL,
   `presentase` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `skill`
+--
+
+INSERT INTO `skill` (`id`, `skill`, `presentase`) VALUES
+(1, 'HTML', 90),
+(2, 'CSS', 85),
+(3, 'JavaScript', 80),
+(4, 'ReactJS', 75),
+(6, 'PHP', 60),
+(7, 'MySQL', 70);
 
 -- --------------------------------------------------------
 
@@ -139,25 +178,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `pendidikan`
 --
 ALTER TABLE `pendidikan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pengalaman`
 --
 ALTER TABLE `pengalaman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `profil`
 --
 ALTER TABLE `profil`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
